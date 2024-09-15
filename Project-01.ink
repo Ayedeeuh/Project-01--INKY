@@ -17,6 +17,7 @@
 
 */
 
+
 You wake up with no memory, only a headache. 
 * [shake it off] -> beginning
 
@@ -24,24 +25,35 @@ You wake up with no memory, only a headache.
 == beginning == 
   {kindness: You're back where you started, theres only one way to go now.|The sun is hot on your fur. Wait, fur? Yes, you suddenly remember you are a little field mouse. What do mice do during the day? Oh yes, look for food!} 
 
-* [scurry towards the red flower] -> red_flower
-* [ go towards the babbling brook] -> brook
+*  [scurry towards the red flower] -> red_flower
+* [go towards the babbling brook] -> brook
 
 -> END
 
+== beginning_2 == 
+You're back at the start!
+
++ [go to the red flower] -> red_flower
++ [ go to the brook ] -> brook
+-> END
+
 == red_flower == 
-You, a little mouse, make your way over to this very large red flower. Under the flower sits a sad looking toad. He's looking down at his hands, sighing heavily every few breaths. 
-* [ask the frog what is wrong] -> sad_frog
-* [ignore the frog and move towards what looks like an open field] -> field
+You, a little mouse, make your way over to this very large red flower. 
+
++ [move towards what looks like an open field] -> field
+* [ look around ] -> sad_frog
+* { paper } [return Mr. Frog's drawing ] -> happy_frog
 -> END
 
 == brook == 
 As you get closer, the water seems much more aggressive than you thought it would be. There is a stick that goes over to the other side, but it looks risky...
-* [attempt to walk the stick bridge] -> other_side 
++ [attempt to walk the stick bridge] -> other_side 
 -> END
 
 
 == sad_frog ==
+
+You look around and realize that there is a frog sitting underneath a smaller red flower. 
 As you approach the frog, you can see that he had been crying and is looking at a wrinkly picture. 
 * [hello, are you alright?] -> alright
 * [ I change my mind ] -> field 
@@ -59,7 +71,7 @@ You approach Mr. Frog, who is still sobbing, and tap him on the shoulder.
 "Oh my! You found my picture! Thank you! Here, for your troubles." 
 
 Mr. Frog reaches in his pocket, and hands you a box of matches. 
-*[ take the matches] -> other_side
+*[ take the matches] -> beginning_2 
 ->END 
 
 == alright == 
@@ -73,6 +85,7 @@ Mr. frog looks up at you, with swollen eyes. You hear him croak, and then he sta
 "Well, you see, this here is a drawing that my late wife had made for me. It was a picture of her and I together. I seem to have lost one half when I was fishing for flies earlier." 
 
 *[ I can keep my eye out for the other half for you.] -> kindness 
+* {paper} ["Do you mean this picture?"] -> happy_happy_frog 
 -> END
 
 == kindness == 
@@ -86,8 +99,10 @@ Mr. Frog then pats you on the head and goes back to wallowing.
 
 
 == field == 
-Past the flower, and through the brush, there is a small opening lined with small stones. The sun is even brighter out here. You think you see something shining from behind one of the rocks. 
- *[investigate the shiny] -> treasure
+Past the flower, and through the brush, there is a small opening lined with small stones. The sun is even brighter out here. {treasure :  | You think you see something shining from behind one of the rocks. }
+ * [investigate the shiny] -> treasure
+ * { secret } [ go towards the lady bugs] -> home
+ * {through_weeds} [ Maybe the button will help? ] -> treasure
 -> END 
 
 == treasure == 
@@ -98,23 +113,50 @@ When you make it over to the rock, you find what seems to be a shiny button the 
 -> END
 
 == other_side == 
-{happy_happy_frog : You made your way back to the other side of the brook. You look ahead and see what looks like a little dark burrow.| The stick is wobbly, as you make your way across the branch it cracks in a few places. But thanks to your nimble mouse body, you made it across just fine.} 
+{happy_happy_frog : You made your way to the other side of the brook. You look ahead and see what looks like a little dark burrow.| The stick is wobbly, as you make your way across the branch it cracks in a few places. But thanks to your nimble mouse body, you made it across just fine.} 
 
-{sad_frog : Along the river you see a scrap of paper, it could be Mr. Frog's |Along the edge of the river, you see what looks like a scrap of paper.}
- * { sad_frog } [that must be the other half of Mr. Frogs picture! Return it to him. ] -> collected
-* {not sad_frog} [ Check it out ] -> paper
+* {sad_frog} [ There's a piece of paper by the stream, Check it out ] -> paper
+* [check out the burrow] -> dark_tunnel
++ {dark_tunnel} [ you already went over here, go back to the start] -> beginning_2 
 
+-> END 
+
+== other_side_after_frog == 
+You're back across the brook. 
+
+*[ go towards the hole] -> dark_tunnel
+* [Go back] -> beginning_2 
 -> END 
 
 == paper == 
 Once you pick it up, you see that it's just what looks like half of a torn photo of what looks like frogs. 
-*[ take it with you ]
-* [ its not important, leave it behind] 
+*[ take it with you ] -> dark_tunnel
 -> END 
 
-== collected == 
-You found Mr. Frog's drawing! Now you have to get it back to him. 
-* [ backtrack to Mr. Frog] -> happy_frog
+== dark_tunnel == 
+Ahead of you is a small hole, it leads underground. Should you check it out?
+
++[ yes ] -> inside
++ [ no ] -> beginning 
+-> END
+== inside == 
+Once you make it inside, you realize it is too dark to see. 
+
+* {happy_happy_frog} [Use the Matches Mr.Frog gave you] -> lit_hole
++ [Go back the other way] -> beginning_2
+-> END 
+
+== lit_hole == 
+Inside the hole, you can see a box. 
+
+When you open the box, you see a ripe strawberry!
+
+*[Eat it up] -> full
+-> END 
+
+== full == 
+Your stomach is full. You have energy to keep exploring... 
++[ go back to the start] -> beginning_2 
 -> END
 
 == middle_of_the_field == 
@@ -140,7 +182,15 @@ The weeds are almost too thick for you to get through, but you make it through j
 
 == jungle ==
 The button makes it more than easy to get through the brush. As youre slicing down the weeds, you see something in the dirt. It looks like a hat small enough for a mouse!
-* [ pick up the hat ] -> through_weeds
+* [ pick up the hat ] -> secret
+-> END 
+
+== secret == 
+Under the hat, there is a ripe strawberry! 
+
+*[ eat it up ] -> full
+
+-> END 
 
 == another_way == 
 There doesn't seem to be too many options, but once you take your time you realize that there is a field of what looks like red berries. 
@@ -148,8 +198,30 @@ There doesn't seem to be too many options, but once you take your time you reali
 -> END
 
 == berries == 
-As you get closer, the berries dont look so much like berries. Discouraged, you continue 
+As you get closer, the berries dont look so much like berries. Discouraged, you continue. You get closer and realize its a bunch of lady bugs! 
+* [continue on... you feel a memory coming back to you] -> home
 -> END
 
+== home == 
+As you go past the lady bugs, you start to remember that this place looks familiar. 
+
+As you think harder, you remember that this is where your little mouse house is!
+
+*[ run home ] -> front_door
+-> END
+
+== front_door == 
+You're at your front door...
+
+* {full >= 1} [ go inside and sleep, you're plenty full] -> end_game
+* {full <= 0 } [you're still wide awake and hungry, you cant go to bed now! ] -> beginning_2 
+-> END 
+
 == through_weeds == 
+After cleaning yourself off, you realize that there's nothing that you can see. There's too many weeds in the way. Maybe if you could cut them down...
+* [go back to the field] -> field
+-> END 
+
+== end_game == 
+You've had a long day as a little mouse. Time for you to go to bed to get ready for tomorrow...
 -> END 
